@@ -1,0 +1,82 @@
+Reactome network, part of the Koblenz Network Collection
+===========================================================================
+
+This directory contains the TSV and related files of the reactome network: This is a network of protein–protein interactions in the species <i>Homo sapiens</i>, i.e., in Humans.  The data is curated by the Reactome project, an open online database of biological pathways. 
+
+
+More information about the network is provided here: 
+http://konect.cc/networks/reactome
+
+Files: 
+    meta.reactome -- Metadata about the network 
+    out.reactome -- The adjacency matrix of the network in whitespace-separated values format, with one edge per line
+      The meaning of the columns in out.reactome are: 
+        First column: ID of from node 
+        Second column: ID of to node
+        Third column (if present): weight or multiplicity of edge
+        Fourth column (if present):  timestamp of edges Unix time
+
+
+Use the following References for citation:
+
+@MISC{konect:2017:reactome,
+    title = {Reactome network dataset -- {KONECT}},
+    month = oct,
+    year = {2017},
+    url = {http://konect.cc/networks/reactome}
+}
+
+@article{konect:reactome,
+ 	title = {{Reactome}: A Knowledgebase of Biological Pathways},
+	author = {Geeta Joshi-Topé and Marc Gillespie and Imre Vastrik and
+                  D'Eustachio, Peter and Esther Schmidt and
+                  de Bono, Bernard and Bijay Jassal and Gopal Gopinath
+                  and Guanming Wu and Lisa Matthews and Suzanna Lewis
+                  and Ewan Birney and Lincoln Stein},
+	journal = {Nucleic Acids Res.}, 
+	volume = {33},
+	number = {Database},
+	pages = {D428--D432}, 
+	year = {2005},
+}
+
+@article{konect:reactome,
+ 	title = {{Reactome}: A Knowledgebase of Biological Pathways},
+	author = {Geeta Joshi-Topé and Marc Gillespie and Imre Vastrik and
+                  D'Eustachio, Peter and Esther Schmidt and
+                  de Bono, Bernard and Bijay Jassal and Gopal Gopinath
+                  and Guanming Wu and Lisa Matthews and Suzanna Lewis
+                  and Ewan Birney and Lincoln Stein},
+	journal = {Nucleic Acids Res.}, 
+	volume = {33},
+	number = {Database},
+	pages = {D428--D432}, 
+	year = {2005},
+}
+
+
+@inproceedings{konect,
+	title = {{KONECT} -- {The} {Koblenz} {Network} {Collection}},
+	author = {Jérôme Kunegis},
+	year = {2013},
+	booktitle = {Proc. Int. Conf. on World Wide Web Companion},
+	pages = {1343--1350},
+	url = {http://dl.acm.org/citation.cfm?id=2488173},
+	url_presentation = {https://www.slideshare.net/kunegis/presentationwow},
+	url_web = {http://konect.cc/},
+	url_citations = {https://scholar.google.com/scholar?cites=7174338004474749050},
+}
+
+@inproceedings{konect,
+	title = {{KONECT} -- {The} {Koblenz} {Network} {Collection}},
+	author = {Jérôme Kunegis},
+	year = {2013},
+	booktitle = {Proc. Int. Conf. on World Wide Web Companion},
+	pages = {1343--1350},
+	url = {http://dl.acm.org/citation.cfm?id=2488173},
+	url_presentation = {https://www.slideshare.net/kunegis/presentationwow},
+	url_web = {http://konect.cc/},
+	url_citations = {https://scholar.google.com/scholar?cites=7174338004474749050},
+}
+
+
