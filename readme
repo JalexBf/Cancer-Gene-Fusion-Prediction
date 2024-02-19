@@ -1,0 +1,14 @@
+This is a a first attemp to train a model to predict future gene fusions in relation to cancer in humans using a Sophisticated Gradient Descent algorithm.
+
+Requirements:
+-Python 3.10
+
+Instructions:
+
+	python GradientDecent.py
+
+For testing:
+	python Testing.py
+
+To train the model:
+	python Training.py
