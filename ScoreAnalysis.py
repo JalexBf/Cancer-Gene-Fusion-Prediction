@@ -35,7 +35,6 @@ class ScoreAnalysis:
 
 G = nx.Graph()
 
-# Read file and add edges
 with open('out.gene_fusion', 'r') as file:
     for line in file:
         if line.startswith('%'):  # Skip comments
@@ -43,20 +42,17 @@ with open('out.gene_fusion', 'r') as file:
         node1, node2 = map(int, line.split())
         G.add_edge(node1, node2)
 
-# Generate adjacency matrix
 Y_matrix = nx.adjacency_matrix(G).todense()
 np.save('Y_matrix.npy', Y_matrix)
 
 rank = 5
 
-# Run stochastic gradient descent
 Z = stochastic_gradient_descent(G, rank)
 
-# Initialize Y_hat matrix
 num_nodes = G.number_of_nodes()
 Y_hat = np.zeros((num_nodes, num_nodes))
 
-# Compute predicted values (dot products of Z features)
+# dot products of Z features
 for i in range(num_nodes):
     for j in range(num_nodes):
         Y_hat[i, j] = np.dot(Z[i, :], Z[j, :])
@@ -66,20 +62,31 @@ np.save('Y_hat_matrix.npy', Y_hat)
 Y_hat = np.load('Y_hat_matrix.npy')
 Y = np.load('Y_matrix.npy')
 
-# Compute the upper triangular indices
 upper_triangular_indices = np.triu_indices_from(Y_hat, k=1)
+observed_edges_scores = []
+for i, j in G.edges():
+    observed_edges_scores.append(Y_hat[i, j])
+observed_edges_scores = np.array(observed_edges_scores)
 
-# Extract unobserved edges scores
-unobserved_edges_scores = Y_hat[upper_triangular_indices]
+upper_triangular_indices = np.triu_indices_from(Y_hat, k=1)
+unobserved_mask = Y[upper_triangular_indices] == 0
+unobserved_edges_scores = Y_hat[upper_triangular_indices][unobserved_mask]
 
-# Create mask for observed edges
-observed_mask = Y[upper_triangular_indices] == 0
+print("Observed edges scores:")
+print("  mean   :", np.mean(observed_edges_scores))
+print("  median :", np.median(observed_edges_scores))
+print("  std    :", np.std(observed_edges_scores))
 
-# Apply mask to filter scores
-unobserved_edges_scores = unobserved_edges_scores[observed_mask]
+print("\nUnobserved edges scores:")
+print("  mean   :", np.mean(unobserved_edges_scores))
+print("  median :", np.median(unobserved_edges_scores))
+print("  std    :", np.std(unobserved_edges_scores))
 
-# Analysis and visualization of scores
-score_analysis = ScoreAnalysis(unobserved_edges_scores)
-score_analysis.statistical_summary()
-score_analysis.plot_histogram()
-score_analysis.plot_boxplot()
+plt.figure(figsize=(10, 5))
+plt.hist(observed_edges_scores, bins=30, alpha=0.6, label="Observed edges")
+plt.hist(unobserved_edges_scores, bins=30, alpha=0.6, label="Unobserved edges")
+plt.xlabel("Z_i · Z_j score")
+plt.ylabel("Frequency")
+plt.title("Observed vs Unobserved Edge Score Distribution")
+plt.legend()
+plt.show()
